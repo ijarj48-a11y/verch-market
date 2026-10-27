@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VERCH MARKET — Prototype</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0f17;--cd:#121826;--ln:#1d2636;--tx:#e6ebf5;--mu:#7b8aa3;--g:#16c784;--r:#ea3943;--b:#3b82f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+#hd{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 14px 8px;border-bottom:1px solid var(--ln);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+#main{max-width:640px;margin:0 auto;padding:12px 14px}
+#hd>div,.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.logo{letter-spacing:.5px}.logo span{color:var(--b)}
+.open{font-size:11px;color:var(--g)}.open i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--g);margin-right:5px}
+.vs{font-size:26px;font-weight:700}.vs small{font-size:15px;margin-left:6px}
+.sm{font-size:12px;color:var(--mu)}.big{font-size:24px;font-weight:700}
+.up{color:var(--g)}.dn{color:var(--r)}.flat{color:var(--mu)}
+.tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;border:1px solid currentColor}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:12px;margin-bottom:12px}
+.card .row{margin:6px 0}
+.sec{font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin:16px 2px 8px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.mini{background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:10px}
+.mini b{display:block;font-size:15px;margin-top:2px}
+.st{display:flex;justify-content:space-between;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.st .r{text-align:right}.st b{font-size:15px}
+canvas{width:100%;height:310px;display:block;margin-top:6px;border-radius:10px;background:#141622}
+body.tr{overflow:hidden;padding-bottom:0}
+#main.tr{position:fixed;left:0;right:0;margin:0 auto;max-width:640px;padding:6px 10px 8px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.cw{flex:1;min-height:0;position:relative}.cw canvas{position:absolute;inset:0;height:100%;margin:0}
+.tb{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bx{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:6px 10px;text-align:center;display:flex;flex-direction:column;gap:1px;justify-content:center}
+.bx input{width:100%;min-width:0;background:none;border:0;text-align:center;font-weight:700;font-size:18px;padding:2px}
+.bx .row{margin:0}.bx button{padding:6px 12px}
+select,input{background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:8px;padding:8px 10px;font-size:15px}
+.qty{display:flex;gap:6px}.qty input{width:90px;text-align:center}
+button{font:inherit;cursor:pointer;color:var(--tx);background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:8px 12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btns2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.b{font-weight:700;font-size:16px;padding:13px;border:0;color:#fff}.buy{background:var(--g)}.sell{background:var(--r)}
+.star{color:var(--mu);font-size:18px;margin-right:10px}.star.on{color:#f5c542}
+table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:6px 4px;border-bottom:1px solid var(--ln);text-align:left}th{color:var(--mu);font-weight:500}
+.nw{background:var(--cd);border-left:3px solid var(--b);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#0e1420;border-top:1px solid var(--ln);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav button{flex:1;border:0;background:none;border-radius:0;padding:14px 0;font-size:9.5px;min-width:0;font-weight:600;color:var(--mu)}
+nav button.on{color:var(--b);box-shadow:inset 0 2px 0 var(--b)}
+.lm{background:var(--cd);border:1px solid var(--ln);border-radius:10px;margin-bottom:8px}.lm summary{padding:12px;font-weight:600;cursor:pointer}.lm ul{margin:0;padding:0 14px 12px 30px;color:#c4cce0}.lm li{margin:6px 0}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cg label{font-size:12px;color:var(--mu)}.cg input{width:100%;margin-top:3px}
+.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none}
+.pill{display:inline-block;min-width:62px;text-align:center;padding:3px 6px;border-radius:6px;font-size:12px;font-weight:600;color:#fff}.pu{background:#16c784}.pd{background:#ea3943}
+.seg{display:flex;background:var(--cd);border-radius:10px;padding:3px;margin:14px 0 4px}.seg button{flex:1;border:0;background:none;padding:9px;font-weight:600;color:var(--mu)}.seg button.on{background:var(--b);color:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}.chip{flex:none;min-width:104px;cursor:pointer}.st>div:first-child{flex:1;min-width:0}.st svg{flex:none;margin:0 10px}
+nav svg{display:block;margin:0 auto 3px}
+.tfs{display:inline-flex;gap:4px}.tfs button{padding:3px 9px;font-size:12px;border-radius:6px}.tfs button.on{background:var(--b);border-color:var(--b);color:#fff}.cw .tfs{position:absolute;top:6px;left:8px;z-index:2}
+button:disabled{opacity:1;color:var(--tx)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));background:#1c2740;border:1px solid var(--b);padding:10px 16px;border-radius:10px;z-index:9;display:none;max-width:90%;text-align:center}
+</style></head><body>
+<div id="hd"></div><div id="main"></div><div id="toast"></div>
+<nav id="nv"></nav>
+<script>
+const $=id=>document.getElementById(id);
+const rn=()=>{let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283*Math.random())};
+const fR=n=>'Rp'+Math.round(n).toLocaleString('id-ID');
+const fS=n=>(n>0.5?'+':n<-0.5?'-':'')+'Rp'+Math.abs(Math.round(n)).toLocaleString('id-ID');
+const fP=(n,s)=>(s&&n>0?'+':'')+n.toFixed(2).replace('.',',')+'%';
+const cl=n=>n>0?'up':n<0?'dn':'flat';
+const TPC=4,T0=780,G='#16c784',RD='#ea3943';
+const DEF=[['TG40','TG40 Holdings','Teknologi',2631000,1.3,1.4],['VRC','Verch Capital','Keuangan',485000,.9,.8],['NOVA','Nova Energy','Energi',12750,1.1,1.6],['ARVX','Arvex Robotics','Teknologi',87400,1.5,1.9],['VERA','Vera Health','Kesehatan',264000,.6,.7],['ZENT','Zenith Retail','Konsumer',5320,.8,1],['KRYO','Kryo Mining','Pertambangan',1480000,1.7,2.2],['BTC','Bitcoin · 0,001 BTC/lot','Crypto',1580000,.5,2.4],['ETH','Ethereum · 0,01 ETH/lot','Crypto',584000,.6,2.8],['SOL','Solana · 0,1 SOL/lot','Crypto',295000,.7,3.4],['BNB','BNB · 0,1 BNB/lot','Crypto',1020000,.5,2.2],['XRP','XRP · 10 XRP/lot','Crypto',368000,.4,3],['DOGE','Dogecoin · 100 DOGE/lot','Crypto',265000,.8,4.2],['XAU','Emas Dunia XAU · 0,1 oz/lot','Emas',6800000,-.35,.8]];
+const RGS={BULLISH:{d:.03,v:.09,n:[40,70]},BEARISH:{d:-.03,v:.09,n:[40,70]},SIDEWAYS:{d:0,v:.05,n:[30,50]},KOREKSI:{d:-.14,v:.12,n:[8,14]},RALLY:{d:.14,v:.12,n:[8,14]}};
+const RC={BULLISH:'up',RALLY:'up',BEARISH:'dn',KOREKSI:'dn',SIDEWAYS:'flat'};
+const NW={BULLISH:'VSG continues to strengthen as global market sentiment improves.',BEARISH:'VSG slips as investors turn cautious across global markets.',SIDEWAYS:'VSG moves sideways as traders wait for a clear signal.',KOREKSI:'Market correction hits VSG as profit-taking accelerates.',RALLY:'Market rally lifts VSG as buying pressure surges.'};
+let S,V,stocks,REG,RG,TM;
+function mk(t,name,sec,p,beta,vol){const c=[];let pc=p;for(let i=0;i<300;i++){const o=pc/(1+rn()*.004*(vol||1)),h=Math.max(o,pc)*(1+Math.random()*.002),l=Math.min(o,pc)*(1-Math.random()*.002);c.unshift({o,h,l,c:pc,v:50+Math.random()*100,t:T0-i});pc=o}
+ c.push({o:p,h:p,l:p,c:p,v:0,t:T0+1});return{t,name,sec,p,o:p,beta,vol,c,n:0,snap:p}}
+function init(){S={cat:'Saham',cash:1e8,hold:{},hist:[],page:'market',sel:'TG40',qty:1,speed:1,pause:0,news:[],tick:0,dayEq:1e8,watch:['TG40','VRC','NOVA']};
+ V=mk('VSG','Verch Stock Global Index','Indeks',3698.70,1,1);V.o=3698.70/1.2613;V.pi=3698.70;
+ stocks=DEF.map(d=>mk(...d));stocks.forEach(s=>s.o=s.p/(1+rn()*.01+.003));
+ REG=[['Asia',4.52,.17],['Europe',3.34,.13],['North America',5.02,.19],['South America',2.57,.10],['Africa',1.96,.08],['Oceania',3.29,.12]].map(r=>({n:r[0],b:r[1],k:r[2],off:0,v:r[1]}));
+ RG={};setRG('BULLISH');S.news=[];addNews('VSG continues to strengthen as global market sentiment improves.');addNews('TG40 gains momentum following strong VSG performance.');
+ go('market');rs()}
+function setRG(k){const r=RGS[k];RG={k,d:r.d,v:r.v,left:r.n[0]+Math.random()*(r.n[1]-r.n[0])|0};if(S&&S.tick)addNews(NW[k])}
+function nextRG(){let w=(RG.k=='KOREKSI'||RG.k=='RALLY')?['BULLISH','BEARISH','SIDEWAYS']:['BULLISH','BEARISH','SIDEWAYS','KOREKSI','RALLY'];w=w.filter(x=>x!=RG.k);setRG(w[Math.random()*w.length|0])}
+function addNews(t){S.news.unshift({t,tm:new Date().toLocaleTimeString('id-ID')});S.news.length=Math.min(S.news.length,30)}
+function upc(s){const c=s.c[s.c.length-1];c.c=s.p;c.h=Math.max(c.h,s.p);c.l=Math.min(c.l,s.p);c.v+=20+Math.random()*60;if(++s.n%TPC==0)s.c.push({o:s.p,h:s.p,l:s.p,c:s.p,v:0,t:c.t+1})}
+function step(){S.tick++;if(--RG.left<=0)nextRG();
+ const vr=RG.d+RG.v*rn();V.p*=1+vr/100;upc(V);
+ stocks.forEach(s=>{s.p=Math.max(100,s.p*(1+(s.beta*vr+s.vol*.08*rn())/100));upc(s)});
+ REG.forEach(r=>{r.v+=-r.v*.06+r.k*5.5*3*vr+rn()*.04});
+ if(S.tick%14==0){let b=null,m=0;stocks.forEach(s=>{const x=s.p/s.snap-1;if(Math.abs(x)>m){m=Math.abs(x);b=[s,x]}s.snap=s.p});
+  if(b)addNews(b[1]>0?b[0].t+' gains momentum following strong VSG performance.':b[0].t+' comes under pressure as VSG weakens.')}}
+const ST=t=>stocks.find(s=>s.t==t);
+function M(){const pv=Object.entries(S.hold).reduce((a,[t,h])=>a+h.q*ST(t).p,0),eq=S.cash+pv;return{pv,eq,today:eq-S.dayEq,total:eq-1e8}}
+function H(){const c=(V.p/V.o-1)*100;$('hd').innerHTML=`<div><b class=logo>VERCH <span>MARKET</span></b><span class=open><i></i>MARKET OPEN${API?(ON?' · SERVER ONLINE':' · OFFLINE'):''}${S.pause?' · PAUSE':''}</span></div><div><div><div class=sm>VSG — Verch Stock Global Index</div><div class="vs ${cl(c)}">${V.p.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2})}<small>${fP(c,1)}</small></div></div><span class="tag ${RC[RG.k]}">${RG.k}</span></div>`}
+function drawOld(cv,s){if(!cv)return;const d=devicePixelRatio||1,W=cv.clientWidth,Ht=cv.clientHeight;cv.width=W*d;cv.height=Ht*d;const g=cv.getContext('2d');g.scale(d,d);
+ const N=36,cs=s.c.slice(-N),pw=70,ch=Ht-22,ph=ch*.76,vh=ch-ph-8;let hi=Math.max(...cs.map(c=>c.h)),lo=Math.min(...cs.map(c=>c.l));const pad=(hi-lo)*.1||1;hi+=pad;lo-=pad;
+ const y=p=>ph*(1-(p-lo)/(hi-lo)),cw=(W-pw)/N,mv=Math.max(...cs.map(c=>c.v))||1,fm=p=>s.t=='VSG'?p.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1}):Math.round(p).toLocaleString('id-ID');
+ g.font='10px sans-serif';g.textBaseline='middle';
+ for(let i=0;i<=4;i++){const p=lo+(hi-lo)*i/4,yy=y(p);g.strokeStyle='#1d2636';g.beginPath();g.moveTo(0,yy);g.lineTo(W-pw,yy);g.stroke();g.fillStyle='#7b8aa3';g.textAlign='right';g.fillText(fm(p),W-4,yy)}
+ cs.forEach((c,i)=>{const x=i*cw+cw/2,up=c.c>=c.o,col=up?G:RD;g.strokeStyle=g.fillStyle=col;g.beginPath();g.moveTo(x,y(c.h));g.lineTo(x,y(c.l));g.stroke();
+  const t=y(Math.max(c.o,c.c)),bh=Math.max(1,Math.abs(y(c.o)-y(c.c)));g.fillRect(x-cw*.3,t,cw*.6,bh);
+  g.globalAlpha=.4;const vv=vh*c.v/mv;g.fillRect(x-cw*.3,ph+8+vh-vv,cw*.6,vv);g.globalAlpha=1;
+  if(i%6==0){const m=c.t;g.fillStyle='#7b8aa3';g.textAlign='center';g.fillText(String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),x,Ht-8)}});
+ const cy=y(s.p),up=s.p>=s.o;g.setLineDash([4,3]);g.strokeStyle=up?G:RD;g.beginPath();g.moveTo(0,cy);g.lineTo(W-pw,cy);g.stroke();g.setLineDash([]);
+ g.fillStyle=up?G:RD;g.fillRect(W-pw,cy-9,pw,18);g.fillStyle='#fff';g.textAlign='center';g.fillText(fm(s.p),W-pw/2,cy)}
+const rowOld=s=>{const c=(s.p/s.o-1)*100;return`<div class=st onclick="go('trade','${s.t}')"><div><b>${s.t}</b><div class=sm>${s.name} · ${s.sec}</div><div class=sm>β ${s.beta} · vol ${s.vol}</div></div><div class=r><b>${fR(s.p)}</b><div class=${cl(c)}>${fP(c,1)}</div></div></div>`};
+function pM(){return`<div class=card><div class=row><b>VSG</b>${TFB()}</div><canvas id=cv></canvas></div><div id=mv>${pMv()}</div>`}
+function pMv(){const m=M();return`<div class=grid2><div class=mini><span class=sm>Total Equity</span><b>${fR(m.eq)}</b></div><div class=mini><span class=sm>Total P/L</span><b class=${cl(m.total)}>${fS(m.total)}</b></div></div>
+<div class=sec>Pasar Global</div><div class=grid3>${REG.map(r=>{const v=r.v;return`<div class=mini style="background:${v>=0?'rgba(22,199,132,.10)':'rgba(234,57,67,.16)'}"><span class=sm>${r.n}</span><b class=${cl(v)}>${v>=0?'▲':'▼'} ${fP(v,1)}</b></div>`}).join('')}</div>
+${ML()}
+<div class=sec>Kontrol Simulasi</div><div class=btns><button onclick="sc('RALLY')">Market Rally</button><button onclick="sc('KOREKSI')">Market Correction</button><button onclick="sc('SIDEWAYS')">Sideways</button><button onclick="sc('BEARISH')">Bearish</button><button onclick="sc('BULLISH')">Bullish</button><button onclick="S.pause^=1;rs();R()">${S.pause?'Lanjut':'Pause'}</button><button onclick="S.speed=S.speed==1?3:S.speed==3?6:1;rs();R()">Kecepatan ${S.speed}x</button><button onclick="setAPI()">Server</button><button onclick="SND^=1;snd('buy');R()">Suara ${SND?'ON':'OFF'}</button><button onclick="nd()">Hari Baru</button><button onclick="if(confirm('Reset demo?'))init()">Reset Demo</button></div>`}
+function pW(){const w=stocks.filter(s=>S.watch.includes(s.t)),o=stocks.filter(s=>!S.watch.includes(s.t));const r=s=>`<div style="display:flex;align-items:center"><span class="star ${S.watch.includes(s.t)?'on':''}" onclick="tw('${s.t}')">★</span><div style="flex:1">${row(s)}</div></div>`;return`<div class=sec>Watchlist</div>${w.map(r).join('')||'<div class=sm>Kosong. Tap ★ untuk menambah.</div>'}<div class=sec>Saham Lain</div>${o.map(r).join('')}`}
+function pTold(){const s=ST(S.sel);return`<div class=card><select onchange="S.sel=this.value;R()">${stocks.map(x=>`<option ${x.t==s.t?'selected':''}>${x.t}</option>`).join('')}</select>
+<div class=row><div><div class=big id=tp></div><div id=tc></div></div><div class=sm id=ti style="text-align:right"></div></div><canvas id=cv></canvas></div>
+<div class=card><div class=row><span>Quantity (lot)</span><div class=qty><button onclick="Q(-1)">−</button><input id=qi type=number min=1 value=${S.qty} oninput="S.qty=Math.max(1,parseInt(this.value)||1);upT()"><button onclick="Q(1)">+</button></div></div>
+<div class=row><span class=sm>Estimasi total</span><b id=tt></b></div><div class=row><span class=sm>Cash</span><b id=tcash></b></div><div class=row><span class=sm>Kepemilikan</span><span id=th></span></div>
+<div class=btns2><button class="b buy" onclick="tr('BUY')">BUY</button><button class="b sell" onclick="tr('SELL')">SELL</button></div></div>`}
+function upT(){const s=ST(S.sel),c=(s.p/s.o-1)*100,h=S.hold[s.t];if(!$('tp'))return;$('tp').textContent=fR(s.p);$('tc').className=cl(c);$('tc').textContent=fP(c,1)+' hari ini';$('ti').innerHTML=`${s.name}<br>${s.sec} · β ${s.beta} · vol ${s.vol}`;
+ $('tt').textContent=fR(S.qty*s.p);$('tcash').textContent=fR(S.cash);$('th').innerHTML=h?`${h.q} lot · avg ${fR(h.a)} · <span class=${cl(s.p-h.a)}>${fS((s.p-h.a)*h.q)}</span>`:'—'}
+function pP(){const m=M(),hs=Object.entries(S.hold);const mt=(a,b,c)=>`<div class=mini><span class=sm>${a}</span><b class=${c||''}>${b}</b></div>`;
+ return`<div class=grid2>${mt('Cash Balance',fR(S.cash))}${mt('Portfolio Value',fR(m.pv))}${mt('Total Equity',fR(m.eq))}${mt('Today’s P/L',fS(m.today),cl(m.today))}${mt('Total P/L',fS(m.total),cl(m.total))}</div>
+<div class=sec>Holdings</div>${hs.map(([t,h])=>{const s=ST(t),u=(s.p-h.a)*h.q;return`<div class=card onclick="go('trade','${t}')"><div class=row><span style="display:flex;gap:8px;align-items:center">${AV(s)}<b>${t}</b></span><span>${h.q} lot</span></div><div class=row><span class=sm>Average Price</span><span>${fR(h.a)}</span></div><div class=row><span class=sm>Current Price</span><span>${fR(s.p)}</span></div><div class=row><span class=sm>Unrealized P/L</span><b class=${cl(u)}>${fS(u)}</b></div></div>`}).join('')||'<div class=sm>Belum ada saham. Buka TRADE untuk BUY.</div>'}
+<div class=sec>Transaction History</div><div class=card><table><tr><th>Waktu</th><th>Tipe</th><th>Kode</th><th>Lot</th><th>Harga</th><th>P/L</th></tr>${S.hist.map(h=>`<tr><td>${h.tm}</td><td class=${h.ty=='BUY'?'up':'dn'}>${h.ty}</td><td>${h.t}</td><td>${h.q}</td><td>${fR(h.p)}</td><td class=${h.pl==null?'':cl(h.pl)}>${h.pl==null?'—':fS(h.pl)}</td></tr>`).join('')||'<tr><td colspan=6 class=sm>Belum ada transaksi.</td></tr>'}</table></div>`}
+function pN(){return`<div class=sec>Simulated News</div>${S.news.map(n=>`<div class=nw>${n.t}<div class=sm>${n.tm} · SIMULATED</div></div>`).join('')}`}
+const PG={market:pM,watch:pW,trade:pT,portfolio:pP,news:pN,learn:pL},NV=[['market','MARKET'],['watch','WATCHLIST'],['trade','TRADE'],['portfolio','PORTFOLIO'],['news','NEWS'],['learn','BELAJAR']];
+function R(){$('main').innerHTML=PG[S.page]();$('main').className=S.page=='trade'?'tr':'';document.body.classList.toggle('tr',S.page=='trade');H();$('nv').innerHTML=NV.map(n=>`<button class="${n[0]==S.page?'on':''}" onclick="go('${n[0]}')"><svg width=22 height=22 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=1.8 stroke-linecap=round stroke-linejoin=round>${IC[n[0]]}</svg>${n[1]}</button>`).join('');
+ if(S.page=='trade')upT();if(S.page=='learn'){calc();qR()}LY()}
+function go(p,t){S.page=p;if(t)S.sel=t;R();scrollTo(0,0)}
+function Q(d){S.qty=Math.max(1,S.qty+d);$('qi').value=S.qty;upT()}
+function tw(t){const i=S.watch.indexOf(t);i<0?S.watch.push(t):S.watch.splice(i,1);R()}
+function sc(k){if(API&&ON)api('/api/scenario',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k})}).catch(()=>{});else setRG(k);R();toast('Skenario: '+k,1)}
+function nd(){if(API&&ON)api('/api/newday',{method:'POST'}).catch(()=>{});stocks.forEach(s=>s.o=s.p);V.o=V.p;S.dayEq=M().eq;R();toast('Hari baru dimulai',1)}
+function toast(m,ok){const t=$('toast');t.textContent=m;t.style.display='block';t.style.borderColor=ok?'#16c784':'#ea3943';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2200)}
+function tr(ty){const s=ST(S.sel),q=S.qty,p=s.p,tot=q*p;let h=S.hold[s.t],pl=null;
+ if(ty=='BUY'){if(tot>S.cash){snd('err');return toast('Saldo tidak cukup',0)}S.cash-=tot;h=S.hold[s.t]=h||{q:0,a:0};h.a=(h.a*h.q+tot)/(h.q+q);h.q+=q}
+ else{if(!h||h.q<q){snd('err');return toast('Lot tidak cukup untuk SELL',0)}S.cash+=tot;pl=(p-h.a)*q;h.q-=q;if(!h.q)delete S.hold[s.t]}
+ S.hist.unshift({tm:new Date().toLocaleTimeString('id-ID'),ty,t:s.t,q,p,tot,pl});toast(`${ty} ${q} lot ${s.t} @ ${fR(p)}`,1);snd(ty=='BUY'?'buy':pl>=0?'win':'loss');svSave();H();upT()}
+function rs(){clearInterval(TM);if(!S.pause)TM=setInterval(async()=>{if(API)await sync();else step();if(S.page=='trade'){H();upT()}else if(S.page=='market'&&$('mv')){H();$('mv').innerHTML=pMv()}else if(S.page=='learn')H();else R()},API?1000:1500/S.speed)}
+function pT(){const s=ST(S.sel);return`<div class=row><select onchange="S.sel=this.value;R()">${stocks.map(x=>`<option ${x.t==s.t?'selected':''}>${x.t}</option>`).join('')}</select><div style="text-align:right"><b id=tp style="font-size:20px"></b> <span id=tc></span></div></div>
+<div class=cw>${TFB()}<canvas id=cv></canvas></div>
+<div class=tb><div class=bx><span class=sm>Jumlah (lot)</span><div class=row><button onclick="Q(-1)">−</button><input id=qi type=number min=1 value=${S.qty} oninput="S.qty=Math.max(1,parseInt(this.value)||1);upT()"><button onclick="Q(1)">+</button></div></div><div class=bx><span class=sm>Total order</span><b id=tt></b><span class=sm>Cash: <span id=tcash></span></span><span class=sm id=th></span></div></div><span id=ti hidden></span>
+<div class=btns2 style="margin-top:0"><button class="b buy" onclick="tr('BUY')">▲ BUY</button><button class="b sell" onclick="tr('SELL')">▼ SELL</button></div>`}
+function LY(){const m=$('main');if(S.page!='trade'){m.style.top=m.style.bottom='';return}m.style.top=$('hd').getBoundingClientRect().bottom+'px';m.style.bottom=$('nv').offsetHeight+'px'}
+const LEARN=[
+["1. Dasar Saham & Istilah Penting",["<b>Saham</b> = bukti kepemilikan sebagian kecil sebuah perusahaan. Harga naik-turun mengikuti permintaan (beli) dan penawaran (jual).","<b>Lot</b> = satuan jumlah transaksi. Di bursa Indonesia nyata 1 lot = 100 lembar. Di demo ini 1 lot = 1 unit harga agar mudah dihitung.","<b>Bid</b> = harga beli tertinggi yang antre, <b>Ask</b> = harga jual terendah. Selisihnya disebut spread.","<b>Market cap</b> = harga x jumlah saham beredar (ukuran besar perusahaan). <b>Dividen</b> = pembagian laba ke pemegang saham.","<b>Indeks</b> (seperti VSG di sini) = angka gabungan yang mewakili kondisi pasar secara keseluruhan."]],
+["2. Profit, Loss, Lot & Average Price",["<b>P/L</b> = (harga sekarang - harga beli) x jumlah lot. Contoh: beli 4 lot di 2.512.000, harga jadi 2.631.000 → untung 4 x 119.000 = Rp476.000.","<b>Unrealized P/L</b> = untung/rugi di atas kertas (belum dijual). <b>Realized P/L</b> = sudah terkunci setelah SELL.","<b>Average price</b> = rata-rata harga beli bila Anda membeli bertahap. Rumus: total modal dibeli / total lot.","<b>Total Equity</b> = Cash + nilai portfolio. Ini angka sebenarnya kekayaan Anda di simulator.","Rugi 50% butuh untung 100% untuk kembali modal. Itu sebabnya menjaga rugi kecil jauh lebih penting daripada mengejar untung besar."]],
+["3. Stop Loss, Take Profit & Risk Reward",["<b>Stop Loss (SL)</b> = batas harga di mana Anda rela keluar dengan rugi kecil agar tidak rugi lebih besar.","<b>Take Profit (TP)</b> = target harga untuk mengunci untung.","<b>Risk:Reward</b> = jarak ke SL dibanding jarak ke TP. Rasio 1:2 artinya risiko 1 untuk potensi untung 2.","<b>Position sizing</b>: tentukan dulu maksimal rugi per transaksi (umumnya 1-2% dari modal), baru hitung jumlah lot. Pakai kalkulator di atas.","Jangan memindahkan SL menjauh hanya karena berharap harga balik. Itu kebiasaan yang paling sering menghancurkan akun."]],
+["4. Membaca Candlestick & Chart",["Satu candle = pergerakan harga dalam satu periode: <b>open, high, low, close</b>.","Candle hijau = harga tutup lebih tinggi dari buka (naik). Candle merah/oranye = turun. <b>Body</b> adalah selisih open-close, <b>wick</b> adalah ekor harga tertinggi/terendah.","Wick panjang menandakan harga ditolak di level itu. Body besar menandakan tekanan beli/jual kuat.","<b>Support</b> = area harga yang sering menahan penurunan. <b>Resistance</b> = area yang sering menahan kenaikan.","<b>Trend</b>: naik (puncak dan lembah makin tinggi), turun (makin rendah), atau sideways (bergerak mendatar).","Garis merah-cokelat di chart adalah <b>moving average</b> (rata-rata harga 7 candle terakhir) untuk melihat arah trend."]],
+["5. Analisis Teknikal",["Menganalisis harga dan volume dari chart untuk memperkirakan peluang arah berikutnya.","<b>Moving Average (MA)</b>: harga di atas MA cenderung trend naik, di bawah MA cenderung turun.","<b>RSI</b> (0-100): di atas 70 dianggap jenuh beli, di bawah 30 jenuh jual. Bukan sinyal pasti, hanya peringatan.","<b>MACD</b>: membandingkan dua MA untuk melihat momentum dan pembalikan arah.","<b>Breakout</b> = harga menembus resistance, <b>breakdown</b> = menembus support. Waspada false breakout (tembus sebentar lalu balik).","Satu indikator tidak cukup. Gabungkan trend, level support/resistance, dan volume."]],
+["6. Analisis Fundamental",["Menilai nilai wajar perusahaan dari kinerja bisnisnya, biasanya untuk investasi jangka menengah-panjang.","<b>EPS</b> = laba bersih per lembar saham. <b>PER</b> = harga / EPS (berapa kali laba yang dibayar pasar).","<b>PBV</b> = harga / nilai buku per saham. <b>ROE</b> = laba dibanding modal sendiri (efisiensi).","<b>DER</b> = utang dibanding modal sendiri. Makin tinggi, makin berisiko saat bunga naik.","Baca laporan keuangan: pendapatan, laba, arus kas, dan utang. Bandingkan dengan perusahaan sejenis dan dengan periode sebelumnya."]],
+["7. Cara Berpikir Analisis Data",["Mulai dari <b>hipotesis</b> yang jelas, misalnya: saham dengan beta tinggi naik lebih besar saat VSG rally.","Kumpulkan data, uji, lalu catat hasil. Coba di simulator ini: bandingkan gerak TG40 dan KRYO saat VSG naik.","Buat <b>jurnal trading</b>: alasan masuk, SL/TP, hasil, dan emosi. Dari situ hitung <b>win rate</b> dan <b>expectancy</b> (rata-rata untung per transaksi).","Waspadai bias: <b>confirmation bias</b> (hanya mencari data yang mendukung keyakinan), <b>survivorship bias</b>, dan <b>overfitting</b> (strategi yang cocok hanya pada data masa lalu).","Hasil masa lalu tidak menjamin hasil masa depan. Uji strategi pada banyak kondisi: bullish, bearish, sideways."]],
+["8. Memahami Pasar Global",["Bursa utama: NYSE & Nasdaq (AS), London, Frankfurt, Tokyo, Shanghai/Hong Kong, dan Bursa Efek Indonesia.","Pasar saling terhubung: penurunan besar di AS sering diikuti Asia keesokan harinya. Karena itu panel Asia, Europe, dan seterusnya di Market bergerak mengikuti VSG.","Jam buka bergantian mengikuti zona waktu (Asia → Eropa → Amerika), sehingga ada pasar yang aktif hampir sepanjang hari.","<b>Korelasi</b>: harga minyak memengaruhi saham energi, dolar kuat menekan komoditas dan mata uang negara berkembang.","<b>Risk-on</b> = investor berani ambil risiko (saham dan crypto naik). <b>Risk-off</b> = investor lari ke aset aman (emas, obligasi, dolar)."]],
+["9. Ekonomi Dunia & Dampaknya",["<b>Suku bunga bank sentral</b>: bunga naik cenderung menekan saham (utang lebih mahal), bunga turun cenderung mendorong pasar.","<b>Inflasi (CPI)</b>: inflasi tinggi biasanya membuat bank sentral menaikkan bunga.","<b>PDB/GDP</b> = ukuran pertumbuhan ekonomi. Dua kuartal berturut-turut menyusut sering disebut resesi.","<b>Data tenaga kerja</b> (misalnya NFP di AS), data ritel, dan neraca perdagangan sering membuat pasar bergerak tajam saat dirilis.","<b>Kurs</b>: pelemahan rupiah menguntungkan eksportir, tetapi membebani perusahaan yang berutang dalam dolar.","Faktor lain: geopolitik, harga energi, rantai pasok, dan kebijakan pemerintah. Pantau kalender ekonomi sebelum trading."]],
+["10. Belajar Crypto",["<b>Crypto</b> adalah aset digital yang dicatat di <b>blockchain</b>, buku besar terbuka yang tidak dikendalikan satu pihak. Contoh: Bitcoin dan Ethereum.","Pasar crypto buka <b>24 jam, 7 hari</b>, dan volatilitasnya jauh lebih tinggi dari saham. Naik atau turun 10% dalam sehari bisa terjadi.","<b>Exchange</b> = tempat jual-beli. <b>Wallet</b> = tempat menyimpan. Kehilangan kunci pribadi (private key) berarti kehilangan aset.","Hati-hati penipuan: janji profit pasti, skema investasi bodong, link palsu, dan koin tanpa fungsi jelas.","Hindari leverage tinggi. Leverage melipatgandakan untung sekaligus rugi dan bisa membuat posisi dilikuidasi.","Cek legalitas platform dan aturan di negara Anda sebelum memakai uang asli."]],
+["11. Trading vs Investasi",["<b>Day trading</b>: buka-tutup posisi dalam hari yang sama. Cepat, stres tinggi, biaya transaksi terasa.","<b>Swing trading</b>: menahan hari sampai minggu. <b>Investasi</b>: menahan bulan sampai tahun berdasarkan fundamental.","<b>Leverage/margin</b> = trading dengan dana pinjaman. Risiko rugi bisa melebihi perkiraan Anda.","<b>Diversifikasi</b>: jangan menaruh semua modal di satu saham atau satu sektor.","Gunakan hanya dana yang siap hilang untuk trading. Dana darurat dan kebutuhan hidup tidak boleh dipakai."]],
+["12. Psikologi Trader",["<b>FOMO</b>: membeli karena takut ketinggalan saat harga sudah melonjak.","<b>Panic selling</b>: menjual rugi karena panik saat pasar turun tajam.","<b>Revenge trading</b>: langsung membuka posisi besar untuk membalas kerugian, biasanya memperburuk keadaan.","Buat aturan tertulis (rencana trading) lalu patuhi: kapan masuk, kapan keluar, berapa risiko.","Mulai dari ukuran kecil dan latihan konsisten di simulator sebelum memikirkan uang asli."]],
+["13. Belajar Emas & Aset Aman",["Emas dikenal sebagai <b>safe haven</b> (aset lindung nilai): sering dicari saat ekonomi tidak pasti, inflasi tinggi, perang, atau pasar saham turun.","Harga emas dunia dalam <b>USD per troy ounce</b> (1 oz = 31,1 gram). Harga per gram dalam rupiah = (USD/oz x kurs) / 31,1. Jadi rupiah melemah bisa membuat emas lokal naik meski emas dunia datar.","<b>Pendorong harga:</b> suku bunga AS (bunga naik biasanya menekan emas karena emas tidak memberi bunga), kekuatan dolar AS, inflasi, geopolitik, dan pembelian emas oleh bank sentral.","<b>Korelasi:</b> emas sering bergerak berlawanan dengan saham saat risk-off. Di simulator ini XAU memakai beta negatif terhadap VSG. Di dunia nyata hubungan ini tidak selalu berlaku, emas bisa turun bersamaan dengan saham.","<b>Risiko:</b> bisa turun atau mendatar bertahun-tahun, tidak ada dividen atau bunga, selisih harga beli-jual (spread) pada emas fisik, leverage pada kontrak/CFD yang sangat berbahaya, dan penipuan investasi emas bodong.","<b>Cara memiliki:</b> emas fisik, tabungan emas, ETF, atau kontrak berjangka. Bandingkan biaya, keamanan penyimpanan, dan legalitas penyedia.","Banyak investor memakai emas sebagai porsi kecil portofolio untuk diversifikasi, bukan sebagai satu-satunya aset."]],
+["14. Latihan di VERCH MARKET",["Lihat kondisi VSG di header (BULLISH, BEARISH, dan seterusnya). Cocokkan dengan arah saham.","Pakai tombol Market Rally atau Market Correction di MARKET lalu amati saham beta tinggi (KRYO, ARVX) vs beta rendah (VERA).","BUY 1 lot, tentukan SL dan TP versi Anda, lalu tunggu. Catat hasilnya di jurnal.","Coba skenario sideways: apakah strategi trend-following Anda masih untung?","Cek Transaction History di PORTFOLIO untuk mengevaluasi keputusan Anda."]]];
+function pL(){const e=Math.round(ST('TG40').p);return`<div class=card><b>Kuis Latihan</b><div id=qz style="margin-top:8px"></div></div>
+<div class=card><b>Kalkulator Risiko & Lot</b><div class=sm style="margin:2px 0 8px">Untuk posisi BUY. Hitung jumlah lot berdasarkan batas rugi.</div><div class=cg><div><label>Modal (Rp)</label><input id=cm type=number inputmode=decimal value=100000000 oninput=calc()></div><div><label>Risiko per transaksi (%)</label><input id=cr type=number inputmode=decimal value=2 oninput=calc()></div><div><label>Harga masuk</label><input id=ce type=number inputmode=decimal value=${e} oninput=calc()></div><div><label>Harga Stop Loss</label><input id=cs type=number inputmode=decimal value=${Math.round(e*.97)} oninput=calc()></div></div><div id=co style="margin-top:10px;line-height:1.7"></div></div>
+<div class=sec>Panduan Belajar</div>${LEARN.map(m=>`<details class=lm><summary>${m[0]}</summary><ul>${m[1].map(x=>`<li>${x}</li>`).join('')}</ul></details>`).join('')}
+<div class=card style="margin-top:12px"><span class=sm>Materi ini bersifat edukasi dan bukan saran investasi. VERCH MARKET adalah simulator dengan data acak, jadi hasilnya tidak mewakili pasar nyata.</span></div>`}
+function calc(){const m=+$('cm').value,r=+$('cr').value,e=+$('ce').value,s=+$('cs').value,d=e-s,o=$('co');if(!o)return;if(!(m>0&&r>0&&e>0&&d>0)){o.innerHTML='<span class=sm>Isi data dengan benar. Untuk BUY, Stop Loss harus di bawah harga masuk.</span>';return}const rk=m*r/100,lot=Math.min(Math.floor(rk/d),Math.floor(m/e));o.innerHTML=`Risiko maksimal: <b>${fR(rk)}</b><br>Ukuran posisi: <b>${lot} lot</b> (modal dipakai ${fR(lot*e)})<br>Rugi jika kena SL: <b class=dn>${fS(-lot*d)}</b><br>Target 1:2 di ${fR(e+2*d)}: <b class=up>${fS(lot*2*d)}</b>`}
+const SP=s=>{const a=s.c.slice(-24).map(c=>c.c),mn=Math.min(...a),r=(Math.max(...a)-mn)||1;return`<svg width=64 height=26 viewBox="0 0 64 26"><polyline fill=none stroke="${s.p>=s.o?'#16c784':'#ea3943'}" stroke-width=1.6 points="${a.map((v,i)=>(i*64/(a.length-1)).toFixed(1)+','+(24-(v-mn)/r*22).toFixed(1)).join(' ')}"/></svg>`};
+const AVold=s=>`<span class=av style="background:${s.sec=='Crypto'?'#f7931a26;color:#f7931a':s.sec=='Emas'?'#f5c54226;color:#f5c542':'#3b82f626;color:#3b82f6'}">${s.t.slice(0,2)}</span>`;
+const row=s=>{const c=(s.p/s.o-1)*100;return`<div class=st onclick="go('trade','${s.t}')"><div style="display:flex;gap:10px;align-items:center">${AV(s)}<div style="min-width:0"><b>${s.t}</b><div class=sm style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div></div></div>${SP(s)}<div class=r><b>${fR(s.p)}</b><div style="margin-top:3px"><span class="pill ${c>=0?'pu':'pd'}">${fP(c,1)}</span></div></div></div>`};
+function ML(){const L=stocks.filter(s=>S.cat=='Crypto'?s.sec=='Crypto':S.cat=='Emas'?s.sec=='Emas':s.sec!='Crypto'&&s.sec!='Emas'),ch=s=>s.p/s.o-1,so=[...L].sort((a,b)=>ch(b)-ch(a)),mv=L.length>3?[...so.slice(0,2),...so.slice(-2)]:[];
+ return`<div class=seg>${['Saham','Crypto','Emas'].map(k=>`<button class="${S.cat==k?'on':''}" onclick="S.cat='${k}';R()">${k}</button>`).join('')}</div>${mv.length?'<div class=sec>Top Movers</div>':''}<div class=chips>${mv.map(s=>`<div class="mini chip" onclick="go('trade','${s.t}')"><div style="display:flex;gap:6px;align-items:center">${AV(s)}<b>${s.t}</b></div><span class="pill ${ch(s)>=0?'pu':'pd'}" style="margin-top:4px">${fP(ch(s)*100,1)}</span></div>`).join('')}</div>${S.cat=='Emas'?GC():''}<div class=sec>${S.cat=='Crypto'?'Pasar Crypto · 24/7':S.cat=='Emas'?'Emas Dunia · Safe Haven':'Daftar Saham'}</div>${L.map(row).join('')}`}
+const IC={market:'<path d="M3 17l5-6 4 4 7-9"/>',watch:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',trade:'<path d="M7 3v18M17 3v18M5 8h4v7H5zM15 6h4v9h-4z"/>',portfolio:'<path d="M4 8h16v11H4zM9 8V5h6v3"/>',news:'<path d="M5 4h14v16H5zM8 9h8M8 13h8"/>',learn:'<path d="M4 5h7v14H4zM13 5h7v14h-7z"/>'};
+function GC(){const g=ST('XAU'),a=g.c.slice(-24).map(c=>c.c),rt=a.slice(1).map((v,i)=>v/a[i]-1),sd=Math.sqrt(rt.reduce((x,y)=>x+y*y,0)/rt.length)*100,lv=sd<.12?'Rendah':sd<.3?'Sedang':'Tinggi',lc=sd<.12?G:sd<.3?'#f5c542':RD,oz=g.p*10;
+ return`<div class=card style="margin-top:10px"><div class=row><b>Harga Emas Dunia (XAU)</b><span class=sm>virtual</span></div><div class=row><span class=sm>XAU/USD per oz</span><b>$${(oz/16500).toLocaleString('en-US',{maximumFractionDigits:2})}</b></div><div class=row><span class=sm>Per gram (kurs Rp16.500)</span><b>${fR(oz/31.1035)}</b></div><div class=row><span class=sm>Volatilitas saat ini</span><b style="color:${lc}">${lv}</b></div><div class=sm style="line-height:1.5;margin-top:6px"><b style="color:#e6ebf5">Risiko:</b> emas cenderung naik saat pasar tertekan (safe haven), tapi bisa turun saat bunga AS atau dolar menguat. Tidak membayar dividen atau bunga. Di simulator, XAU bergerak berlawanan dengan VSG.</div></div>`}
+const AI={
+TG40:['#3b82f6','<rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/>'],
+VRC:['#38bdf8','<path d="M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>'],
+NOVA:['#facc15','<path d="M13 2L5 14h6l-1 8 8-12h-6z"/>'],
+ARVX:['#a78bfa','<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13v1M15 13v1M9 17h6"/><circle cx="12" cy="3.5" r="1"/>'],
+VERA:['#f43f5e','<path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"/><path d="M12 9v5M9.5 11.5h5"/>'],
+ZENT:['#f472b6','<path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2"/>'],
+KRYO:['#22d3ee','<path d="M6 4h12l4 6-10 11L2 10z"/><path d="M2 10h20M9 4l-2 6 5 11 5-11-2-6"/>'],
+BTC:['#f7931a','<circle cx="12" cy="12" r="9"/><path d="M10 7v10M10 7h3.5a2.2 2.2 0 010 4.4H10M10 11.4h4a2.3 2.3 0 010 4.6h-4M11.5 5.5v1.5M11.5 17v1.5"/>'],
+ETH:['#8b9bff','<path d="M12 2l7 10-7 4-7-4zM5 14l7 8 7-8-7 4z"/>'],
+SOL:['#14f195','<path d="M7 5h13l-3 3H4zM4 10.5h13l3 3H7zM7 16h13l-3 3H4z"/>'],
+BNB:['#f3ba2f','<path d="M12 3l3 3-3 3-3-3zM6 9l3 3-3 3-3-3zM18 9l3 3-3 3-3-3zM12 15l3 3-3 3-3-3zM12 10.5l1.5 1.5-1.5 1.5-1.5-1.5z"/>'],
+XRP:['#cbd5e1','<path d="M5 5l7 7 7-7M5 19l7-7 7 7"/>'],
+DOGE:['#d4b53c','<circle cx="12" cy="12" r="9"/><path d="M9 7v10h3a4.5 4.5 0 000-10zM7.5 12h6"/>'],
+XAU:['#f5c542','<path d="M3 18l2-5h6l2 5zM11 18l2-5h6l2 5zM7 13l2-5h6l2 5z"/>']};
+const AV=s=>{const [c,p]=AI[s.t]||['#7b8aa3','<circle cx="12" cy="12" r="8"/>'];return`<span class=av style="background:${c}22;color:${c};box-shadow:0 0 12px ${c}66,inset 0 0 0 1.5px ${c}99"><svg width=20 height=20 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=1.8 stroke-linecap=round stroke-linejoin=round>${p}</svg></span>`};
+let TF=1;const TFS=[1,5,15];
+function TFagg(s){if(TF==1)return s.c;const o=[];let k=null,g=null;for(const c of s.c){const q=Math.floor(c.t/TF);if(q!==k){k=q;g={o:c.o,h:c.h,l:c.l,c:c.c,v:c.v,t:q*TF};o.push(g)}else{g.h=Math.max(g.h,c.h);g.l=Math.min(g.l,c.l);g.c=c.c;g.v+=c.v}}return o}
+const TFB=()=>`<span class=tfs>${TFS.map(k=>`<button class="${k==TF?'on':''}" onclick="setTF(${k})">${k}m</button>`).join('')}</span>`;
+function setTF(k){TF=k;R()}
+let SND=1,AC;
+function snd(k){if(!SND)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const q={buy:[[520,0],[780,.09]],win:[[660,0],[880,.09],[1100,.18]],loss:[[440,0],[330,.12]],err:[[180,0],[150,.1]]}[k];q.forEach(([f,t])=>{const o=AC.createOscillator(),g=AC.createGain(),t0=AC.currentTime+t;o.type=k=='err'?'square':'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(.18,t0+.015);g.gain.exponentialRampToValueAtTime(.0001,t0+.14);o.connect(g);g.connect(AC.destination);o.start(t0);o.stop(t0+.16)})}catch(e){}}
+const QB=[
+["Beli 4 lot di Rp2.512.000, harga sekarang Rp2.631.000. Berapa unrealized P/L?",["+Rp119.000","+Rp476.000","+Rp2.631.000","-Rp476.000"],1,"(2.631.000 - 2.512.000) x 4 = Rp476.000."],
+["Candle hijau berarti...",["Harga tutup lebih tinggi dari harga buka","Harga turun","Volume nol","Pasar tutup"],0,"Hijau = close di atas open, artinya periode itu naik."],
+["Fungsi utama stop loss adalah...",["Mengunci untung otomatis","Membatasi kerugian di harga yang ditentukan","Menambah jumlah lot","Menghapus spread"],1,"SL membuat Anda keluar saat rugi masih kecil."],
+["Risk:Reward 1:2 artinya...",["Risiko 2 untuk untung 1","Risiko 1 untuk potensi untung 2","Peluang menang 1 dari 2","Modal 2 lot"],1,"Jarak ke target dua kali jarak ke stop loss."],
+["Setelah rugi 50%, berapa untung yang dibutuhkan untuk kembali ke modal awal?",["50%","75%","100%","150%"],2,"Modal 100 jadi 50. Untuk kembali ke 100 butuh naik 100%."],
+["Harga bertahan di atas moving average umumnya menandakan...",["Trend cenderung naik","Trend cenderung turun","Pasar tutup","Saham dihapus dari bursa"],0,"MA menunjukkan arah rata-rata harga. Di atas MA cenderung bullish."],
+["RSI di atas 70 umumnya dianggap...",["Jenuh jual","Jenuh beli","Pasti turun besok","Volume tinggi"],1,"Itu peringatan, bukan sinyal pasti. Harga masih bisa naik."],
+["PER mengukur...",["Harga dibanding laba per saham","Jumlah dividen","Kecepatan transaksi","Jumlah utang"],0,"PER = harga / EPS (laba per lembar)."],
+["Bank sentral menaikkan suku bunga. Dampak umum ke saham?",["Cenderung tertekan","Pasti naik","Tidak ada pengaruh","Volume berhenti"],0,"Bunga naik membuat utang lebih mahal dan obligasi lebih menarik."],
+["Mengapa emas disebut safe haven?",["Selalu naik","Sering dicari saat ketidakpastian","Membayar dividen tinggi","Tidak pernah turun"],1,"Emas bisa turun juga, tetapi sering dipilih saat pasar cemas."],
+["Risiko utama crypto adalah...",["Volatilitas tinggi dan penipuan","Tidak bisa dijual","Hanya buka siang hari","Harga tetap"],0,"Harga bisa berubah drastis, dan banyak skema penipuan."],
+["Leverage tinggi berarti...",["Untung dan rugi sama-sama diperbesar","Rugi dihilangkan","Bebas risiko","Biaya nol"],0,"Leverage melipatgandakan risiko, termasuk risiko likuidasi."],
+["Membeli karena takut ketinggalan saat harga melonjak disebut...",["FOMO","Diversifikasi","Stop loss","Spread"],0,"FOMO sering membuat orang membeli di harga puncak."],
+["Modal Rp100 juta dan risiko 2% per transaksi. Maksimal rugi per transaksi?",["Rp200.000","Rp2.000.000","Rp20.000.000","Rp200.000.000"],1,"100.000.000 x 2% = Rp2.000.000."],
+["Saat VSG market correction, aset yang bergerak berlawanan di simulator ini adalah...",["XAU (emas)","TG40","BTC","KRYO"],0,"XAU memakai beta negatif terhadap VSG."],
+["Wick (ekor) candle yang panjang menandakan...",["Harga ditolak dari level itu","Volume nol","Bursa libur","Ada dividen"],0,"Harga sempat menyentuh level jauh lalu kembali."]];
+let QZ=null,QBEST=null;
+function qS(){QZ={l:[...QB].sort(()=>Math.random()-.5).slice(0,10),i:0,s:0,a:-1};qR()}
+function qA(k){QZ.a=k;if(k==QZ.l[QZ.i][2]){QZ.s++;snd('win')}else snd('err');qR()}
+function qR(){const e=$('qz');if(!e)return;
+ if(!QZ){e.innerHTML=`<div class=sm>10 soal acak dari bank soal. Skor terbaik: ${QBEST==null?'-':QBEST+'/10'}</div><button class="b buy" style="margin-top:8px;width:100%" onclick="qS()">Mulai Kuis</button>`;return}
+ if(QZ.i>=QZ.l.length){const sc=QZ.s;QBEST=Math.max(QBEST||0,sc);QZ=null;e.innerHTML=`<div class=big>${sc}/10</div><div class=sm style="margin:4px 0 8px">${sc>=8?'Mantap! Pemahamanmu sudah kuat.':sc>=5?'Lumayan. Ulangi materi yang masih salah.':'Pelajari materi di bawah lalu coba lagi.'}</div><button class="b buy" style="width:100%" onclick="qS()">Ulangi Kuis</button>`;return}
+ const q=QZ.l[QZ.i],an=QZ.a>=0;
+ e.innerHTML=`<div class=sm>Soal ${QZ.i+1}/${QZ.l.length} · Skor ${QZ.s}</div><div style="font-weight:600;margin:6px 0 10px">${q[0]}</div>${q[1].map((o,k)=>`<button style="display:block;width:100%;text-align:left;margin-bottom:6px;${an?(k==q[2]?'border-color:#16c784;background:#16c78422':k==QZ.a?'border-color:#ea3943;background:#ea394322':''):''}" ${an?'disabled':''} onclick="qA(${k})">${o}</button>`).join('')}${an?`<div class=sm style="margin:6px 0;color:#c4cce0">${QZ.a==q[2]?'Benar. ':'Kurang tepat. '}${q[3]}</div><button class="b buy" style="width:100%" onclick="QZ.i++;QZ.a=-1;qR()">${QZ.i+1>=QZ.l.length?'Lihat Skor':'Soal berikutnya'}</button>`:''}`}
+let API=(window.VERCH_API||localStorage.getItem('verch_api')||'').replace(/\/$/,''),ON=0;
+const DEV=(()=>{const n=()=>'d'+Math.random().toString(36).slice(2)+Date.now().toString(36);try{let d=localStorage.getItem('verch_dev');if(!d){d=n();localStorage.setItem('verch_dev',d)}return d}catch(e){return n()}})();
+const api=(p,o)=>fetch(API+p,o).then(r=>{if(!r.ok)throw 0;return r.json()});
+function sync(){return api('/api/state').then(d=>{ON=1;apply(d)}).catch(()=>{ON=0;step()})}
+function apply(d){if(d.tick===S.stk)return;
+ const f=(s,p,o)=>{if(!S.sv){const k=p/s.p;s.c.forEach(c=>{c.o*=k;c.h*=k;c.l*=k;c.c*=k});s.snap=p;s.a=null}s.p=p;s.o=o};
+ f(V,d.v,d.vo);stocks.forEach(s=>{if(d.p[s.t])f(s,d.p[s.t],d.o[s.t])});
+ const k=Math.min(5,Math.max(1,d.tick-(S.stk||d.tick-1)));for(let i=0;i<k;i++){upc(V);stocks.forEach(upc)}
+ S.stk=d.tick;S.sv=1;S.tick=d.tick;RG.k=d.rg;RG.left=99;REG.forEach((r,i)=>{r.v=d.reg[i]});S.news=d.news.map(n=>({t:n[0],tm:n[1]}))}
+function svSave(){if(!API||!ON)return;api('/api/save/'+DEV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cash:S.cash,hold:S.hold,hist:S.hist.slice(0,100),watch:S.watch,dayEq:S.dayEq})}).catch(()=>{})}
+function svLoad(){if(!API)return;api('/api/load/'+DEV).then(d=>{if(d&&typeof d.cash=='number'){S.cash=d.cash;S.hold=d.hold||{};S.hist=d.hist||[];S.watch=d.watch||S.watch;S.dayEq=d.dayEq||S.dayEq;R()}}).catch(()=>{})}
+function setAPI(){const u=prompt('Alamat server (contoh http://IP:PORT). Kosongkan untuk mode offline:',API);if(u===null)return;API=u.trim().replace(/\/$/,'');try{localStorage.setItem('verch_api',API)}catch(e){}S.sv=0;S.stk=0;ON=0;rs();svLoad();R()}
+let LT=0,LK='';
+function anim(s,dt){let a=s.a;if(!a)a=s.a={dp:s.p,hi:null,lo:0,sh:0,len:s.c.length};
+ a.dp+=(s.p-a.dp)*(1-Math.exp(-dt*(3+S.speed*1.5)));a.k=1-Math.exp(-dt*5);
+ 
+ a.sh*=Math.exp(-dt*5);if(a.sh<.001)a.sh=0}
+function draw2(cv,s,t){const a=s.a,d=devicePixelRatio||1,W=cv.clientWidth,HH=cv.clientHeight;if(!W)return;
+ if(cv.width!=Math.round(W*d)||cv.height!=Math.round(HH*d)){cv.width=Math.round(W*d);cv.height=Math.round(HH*d)}
+ const g=cv.getContext('2d');g.setTransform(d,0,0,d,0,0);g.fillStyle='#141622';g.fillRect(0,0,W,HH);
+ const C=TFagg(s);if(a.tl!==TF){a.tl=TF;a.len=C.length;a.sh=0;a.hi=null}if(C.length!=a.len){a.sh+=C.length-a.len;a.len=C.length}
+ const top=38,bot=24,ph=HH-top-bot,cw=W/38,lastX=W*.52,expX=W*.64,N=Math.ceil(lastX/cw)+3,L=C.length,n=Math.min(N,L),off=L-n;
+ const vis=C.slice(off).map((c,i)=>i==n-1?{...c,c:a.dp,h:Math.max(c.h,a.dp),l:Math.min(c.l,a.dp)}:c);
+ const X=i=>lastX-(n-1-i)*cw+a.sh*cw;let th=-1e18,tl=1e18;
+ vis.forEach((c,i)=>{const x=X(i);if(x>0&&x<lastX+cw){th=Math.max(th,c.h);tl=Math.min(tl,c.l)}});
+ const pd=(th-tl)*.2||s.p*.001;th+=pd;tl-=pd;if(a.hi==null){a.hi=th;a.lo=tl}else{a.hi+=(th-a.hi)*a.k;a.lo+=(tl-a.lo)*a.k}
+ const y=p=>top+ph*(1-(p-a.lo)/(a.hi-a.lo)),rg=a.hi-a.lo,dec=Math.max(rg<2?3:rg<20?2:rg<200?1:0,s.t=='VSG'?2:0),fm=p=>p.toLocaleString('id-ID',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+ g.font='11px sans-serif';g.textBaseline='middle';g.lineWidth=1;g.setLineDash([2,4]);g.strokeStyle='#2a2e44';
+ vis.forEach((c,i)=>{if(c.t%(4*TF)==0){const x=X(i);g.beginPath();g.moveTo(x,top);g.lineTo(x,HH-bot);g.stroke()}});
+ for(let i=0;i<=4;i++){const yy=y(a.lo+rg*(.1+.8*i/4));g.beginPath();g.moveTo(0,yy);g.lineTo(W,yy);g.stroke()}
+ g.setLineDash([]);
+ g.fillStyle='rgba(255,255,255,.045)';const bx=lastX+cw*1.8;g.fillRect(bx,top-8,expX-bx,HH-bot-top+8);
+ g.strokeStyle='#eceff8';g.lineWidth=1.3;g.beginPath();g.moveTo(expX,top-8);g.lineTo(expX,HH-bot);g.stroke();g.lineWidth=1;
+ const lt=s.c[s.c.length-1].t,rem=Math.max(0,Math.ceil(((Math.floor(lt/TF)+1)*TF-lt-1)*TPC*1.5/S.speed+(TPC-s.n%TPC)*1.5/S.speed));g.fillStyle='#7b8399';g.textAlign='right';g.fillText('Candle baru',bx-4,top-20);g.fillStyle='#e6ebf5';g.font='bold 14px sans-serif';g.fillText(String(rem/60|0).padStart(2,'0')+':'+String(rem%60).padStart(2,'0'),bx-4,top-5);
+ g.textAlign='left';g.font='11px sans-serif';g.fillStyle='#7b8399';g.fillText(s.t=='VSG'?'Kondisi':'VSG',expX+8,top-20);g.font='bold 13px sans-serif';g.fillStyle=RG.k=='SIDEWAYS'?'#e6ebf5':RC[RG.k]=='up'?G:RD;g.fillText(RG.k,expX+8,top-5);
+ g.font='11px sans-serif';
+ vis.forEach((c,i)=>{const x=X(i);if(x<-cw)return;const up=c.c>=c.o,col=up?'#4caf50':'#ef6c4b';g.strokeStyle=g.fillStyle=col;g.beginPath();g.moveTo(x,y(c.h));g.lineTo(x,y(c.l));g.stroke();g.fillRect(x-cw*.28,y(Math.max(c.o,c.c)),cw*.56,Math.max(1.5,Math.abs(y(c.o)-y(c.c))))});
+ const cl2=C.map(c=>c.c);cl2[L-1]=a.dp;const pts=[];for(let i=0;i<n;i++){const gi=off+i;let sm=0,k=0;for(let j=Math.max(0,gi-6);j<=gi;j++){sm+=cl2[j];k++}pts.push([X(i),y(sm/k)])}
+ g.strokeStyle='#b5432e';g.lineWidth=1.7;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length-1;i++){g.quadraticCurveTo(pts[i][0],pts[i][1],(pts[i][0]+pts[i+1][0])/2,(pts[i][1]+pts[i+1][1])/2)}g.lineTo(pts[pts.length-1][0],pts[pts.length-1][1]);g.stroke();g.lineWidth=1;
+ g.fillStyle='#6b7390';g.textAlign='right';
+ for(let i=0;i<=4;i++){const p=a.lo+rg*(.1+.8*i/4),yy=y(p),s2=fm(p),w=g.measureText(s2).width+8;g.fillStyle='#141622';g.fillRect(W-w-2,yy-8,w+2,16);g.fillStyle='#6b7390';g.fillText(s2,W-6,yy)}
+ g.textAlign='center';vis.forEach((c,i)=>{if(c.t%(4*TF)==0){const m=c.t;g.fillText(String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),X(i),HH-10)}});
+ const yy=Math.min(top+ph,Math.max(top,y(a.dp))),xl=X(n-1);g.strokeStyle='#8a90a8';g.beginPath();g.moveTo(0,yy);g.lineTo(W,yy);g.stroke();
+ const r=11+3*Math.sin(t/260),gr=g.createRadialGradient(xl,yy,0,xl,yy,r);gr.addColorStop(0,'rgba(59,160,255,.95)');gr.addColorStop(.5,'rgba(37,99,235,.55)');gr.addColorStop(1,'rgba(37,99,235,0)');g.fillStyle=gr;g.beginPath();g.arc(xl,yy,r,0,6.283);g.fill();g.fillStyle='#8ec5ff';g.beginPath();g.arc(xl,yy,3,0,6.283);g.fill();
+ const pl=fm(a.dp);g.font='bold 12px sans-serif';const pw=g.measureText(pl).width+14;g.fillStyle='#4a4f66';g.fillRect(W-pw,yy-11,pw,22);g.fillStyle='#fff';g.textAlign='right';g.fillText(pl,W-7,yy)}
+function loop(t){requestAnimationFrame(loop);const cv=$('cv');if(!cv||!S)return;const s=S.page=='market'?V:ST(S.sel),k=S.page+s.t;if(k!=LK){LK=k;s.a=null;LT=t}const dt=Math.min(.1,Math.max(0,(t-LT)/1000));LT=t;anim(s,dt);draw2(cv,s,t)}
+init();svLoad();requestAnimationFrame(loop);addEventListener('resize',LY);
+</script></body></html>
